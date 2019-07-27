@@ -1,0 +1,20 @@
+<h1>로그인 페이지</h1>
+
+<form method="POST" action="">
+    {%csrf_token%}
+    <div>E-mail</div>
+    <input type="email" name="email">
+    <div>패스워드</div>
+    <input type="password" name="password1">
+    <br>
+    <input type="submit" value="로그인">
+    <a href="{% url 'signup' %}">회원가입</a>
+    <br>
+    {% if messages %}
+      {% for message in messages %}
+        {{ message.tags }}
+        {{ message.message }}
+      {% endfor %}
+    {% endif %}
+</form>
+
