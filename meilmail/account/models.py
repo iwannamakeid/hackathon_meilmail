@@ -8,5 +8,7 @@ class Account(models.Model):
     email = models.EmailField()
     nickname = models.CharField(max_length=20)
 
+    # 작가계정인지 일반계정인지 여부 false = 일반계정, true= 작가계정
+    is_writer = models.BooleanField(default=False)
     def __str__(self):
         return self.user.username
