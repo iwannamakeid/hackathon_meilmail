@@ -14,16 +14,20 @@ def login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = auth.authenticate(request, username=email, password=password)
-
+        nickname = Account.nickname
         # 로그인에 실패한 경우
         if user is None:
-            messages.info(request, ": 회원이 아닙니다. 회원가입을 해주세요")
+            messages.info(request, ": 회원정보가 일치하지 않습니다. 다시 시도해주세요")
             return redirect('login')
 
         auth.login(request, user)
         return redirect('home')
     else:
         return render(request, 'account/login.html')
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'account/home.html')
 
 def signup(request):
     if request.method == 'POST':
