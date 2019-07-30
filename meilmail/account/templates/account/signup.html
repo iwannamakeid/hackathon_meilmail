@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+
+<body>
+  <form action="" method="POST">
+    {%csrf_token %}
+    <input type="text" name="email" placeholder="이메일을 입력하세요" />
+    <button type="button">인증번호 보내기</button>
+    <br />
+    <input type="password" name="password" placeholder="비밀번호를 입력하세요" />
+    <br />
+    <input type="password" name="password_confirm" placeholder="비밀번호를 확인해주세요" />
+    <br />
+    <input type="text" name="nickname" placeholder="닉네임을 알려주세요" />
+    <br />
+    {% if messages %}
+      {% for message in messages %}
+        {{ message.tags }}
+        {{ message.message }}
+      {% endfor %}
+    {% endif %}
+    <br />
+    <input type="submit" value="회원가입" />
+  </form>
+</body>
+
+</html>
