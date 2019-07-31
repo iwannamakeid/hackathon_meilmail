@@ -5,7 +5,9 @@
 {% if user.is_active %}
 {{ nickname }}님 반갑습니다
 <a href="{% url 'logout' %}">로그아웃</a>
+<a href="{% url 'write'%}"> 글쓰기 </a>
 {% else %}
 <a href="{% url 'login' %}">로그인</a>
 <a href="{% url 'signup' %}">회원가입</a>
 {% endif %}
+
