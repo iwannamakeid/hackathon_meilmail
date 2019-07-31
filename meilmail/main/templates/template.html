@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}
+    <title>Document</title>
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/template.css' %}" type="text/css" />
+    {% block style %}
+    {% endblock %}
+  </head>
+
+  <body>
+    <div id="navbar">
+      <div class="container">
+        <div class="navbar_logo">
+          Logo
+        </div>
+        <div class="navbar_menu">
+          {% if user.is_active %}
+            {{ nickname }}님 반갑습니다
+            <a href="{% url 'logout' %}">글쓰기</a>
+            <a href="{% url 'write'%}">로그아웃</a>
+          {% else %}
+            <a href="{% url 'login' %}">로그인</a>
+            <a href="{% url 'signup' %}">회원가입</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div id="content">
+      <div class="container">
+        {% block content %}
+        Content
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

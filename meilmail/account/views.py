@@ -5,16 +5,11 @@ from django.contrib import auth
 from .models import Account
 
 # Create your views here.
-
-def home(request):
-    return render(request, 'account/home.html')
-
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = auth.authenticate(request, username=email, password=password)
-        nickname = Account.objects.get(user=user).nickname
 
         # 로그인에 실패한 경우
         if user is None:
@@ -22,13 +17,15 @@ def login(request):
             return redirect('login')
 
         auth.login(request, user)
-        return render(request, 'account/home.html', { 'nickname': nickname })
+
+        # 다른 앱에 있는 html 파일을 불러올 때 사용
+        return redirect("home")
     else:
         return render(request, 'account/login.html')
 
 def logout(request):
     auth.logout(request)
-    return render(request, 'account/home.html')
+    return redirect("home")
 
 def signup(request):
     if request.method == 'POST':
