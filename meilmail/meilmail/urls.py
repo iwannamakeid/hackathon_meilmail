@@ -16,10 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import account.views
+import write.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', account.views.home, name="home"),
     path('signup/', account.views.signup, name="signup"),
     path('login', account.views.login, name="login"),
+    path ('<int:post_id>', write.views.detail, name='detail'),
+    path('write/', write.views.write, name="write"),
+    path('<int:post_id>/delete',write.views.delete, name='delete'),
+    path('<int:post_id>/edit',write.views.edit, name='edit'),
+    path('<int:post_id>/comment', write.views.comment_create, name='comment')
 ]
