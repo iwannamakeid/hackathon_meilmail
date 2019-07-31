@@ -1,18 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Post, Comment
+from django.utils import timezone
+from django.http import HttpResponseForbidden
 
-# Create your views here.: 어떤 데이터가 어떻게 처리될 지 알려주는 함수! model과 templates를 연결.
 def home(request):
     post_list = Post.objects.all() 
     return render(request, 'home.html', {'post_list':post_list})
-
-    #쿼리셋과 메소드의 형식: "모델.쿼리셋(Object).메소드"
-    #all():포스트로 만든 모든 쿼리셋 객체들을 불러오라는 소리
-        #.count: 개수 반환
-        # .first(): 첫번째 객체 반환
-        # .last(): 마지막 객체 반환
-    #쿼리셋:포스트 안에 있는 객체를 담아준다.모델로부터 객체의 목록을 전달받을 수 있음.=.object
-    #쿼리셋을 이용해서 받은 데이터를 정렬, 표시하는 방법을 메소드라고 함.
 
 def detail(request, post_id):
     post=Post.objects.get(id=post_id)
@@ -20,15 +13,18 @@ def detail(request, post_id):
     return render(request,"detail.html", {'post':post, 'comments': comments})
 
 def write(request):
-    if request.method=="POST":
-        post=Post()
-        post.title=request.POST['title']
-        post.content=request.POST['content']
-        post.save()
-        return redirect('home')
+    return render(request, 'writing.html')
 
-    else:
-        return render(request, 'write.html')
+def create(request):
+    if request.method == 'POST':
+        post = Post()
+        post.title = request.POST['title']
+        post.body = request.POST['body']
+        post.pub_date = timezone.datetime.now()
+        post.files = request.FILES['file']
+        post.save() #쿼리셋 메소드입니다. 객체를 저장하도록 하는 메소드입니다.
+        return redirect('/writing')
+    return HttpResponseForbidden('allowed only via POST')
 
 def delete(request, post_id):
     post = Post.objects.get(id=post_id)

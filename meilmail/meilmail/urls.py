@@ -26,6 +26,7 @@ urlpatterns = [
     path('logout', account.views.logout, name='logout'),
     path ('<int:post_id>', write.views.detail, name='detail'),
     path('write/', write.views.write, name="write"),
+    path('create/', write.views.create, name="create"),
     path('<int:post_id>/delete',write.views.delete, name='delete'),
     path('<int:post_id>/edit',write.views.edit, name='edit'),
     path('<int:post_id>/comment', write.views.comment_create, name='comment'),
