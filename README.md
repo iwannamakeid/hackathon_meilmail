@@ -46,4 +46,3 @@ requirements.txt 파일에 명시되어있는 라이브러리를 깔 때
 ```
 pip install -r requirements.txt
 ```
-# janejungblog
